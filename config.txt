@@ -1,0 +1,51 @@
+vl	system-view
+int GigabitEthernet 0/0/0
+ip address 10.0.0.6 30
+
+port link-type access
+ port default vlan 4
+
+	
+
+
+ port link-type trunk
+ port trunk allow-pass vlan 2 3 4 10
+#
+
+
+interface Vlanif 20
+ ip address 192.168.20.1 255.255.255.0
+ dhcp select interface
+
+system-view
+interface GigabitEthernet 0/0/0
+ip address 10.0.0.2 30
+
+
+ospf 1 router-id 192.168.100.1
+import-route ststic 
+ area 0.0.0.0
+  network 10.0.0.1 0.0.0.0
+display ip routin
+
+qui
+save
+y	
+
+
+
+dot1q termination vid 3
+ ip address 192.168.3.1 255.255.255.0
+ arp broadcast enable
+ dhcp select interface
+
+
+
+system-view
+interface Ethernet 0/0/0
+ip address 10.0.0.10 30
+ping 10.0.0.9
+
+
+>system-view 
+vlan batch  2 3 4
