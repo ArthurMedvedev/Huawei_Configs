@@ -1,0 +1,49 @@
+[Huawei]display current-configuration 
+#
+sysname Huawei
+#
+vlan batch 10 20 100 200
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+drop illegal-mac alarm
+#
+dhcp enable
+#
+diffserv domain default
+#
+drop-profile default
+#
+vlan 100
+ aggregate-vlan
+ access-vlan 10 20
+#
+ip pool 1
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password simple admin
+ local-user admin service-type http
+#
+interface Vlanif1
+#
+interface Vlanif100
+ ip address 172.16.1.254 255.255.255.0
+ arp-proxy inter-sub-vlan-proxy enable
+ arp-proxy inner-sub-vlan-proxy enable
+ dhcp select interface
+#
+interface Vlanif200
+ ip address 172.16.200.1 255.255.255.0
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+ port link-type trunk
+ port trunk allow-pass vlan 10 20 200
