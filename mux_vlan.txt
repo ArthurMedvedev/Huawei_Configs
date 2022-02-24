@@ -1,0 +1,51 @@
+[Huawei]display current-configuration 
+#
+sysname Huawei
+#
+vlan batch 200 to 202
+#
+cluster enable
+ntdp enable
+ndp enable
+#
+drop illegal-mac alarm
+#
+dhcp enable
+#
+diffserv domain default
+#
+drop-profile default
+#
+vlan 200
+ mux-vlan
+ subordinate separate 202
+ subordinate group 201
+#
+aaa
+ authentication-scheme default
+ authorization-scheme default
+ accounting-scheme default
+ domain default
+ domain default_admin
+ local-user admin password simple admin
+ local-user admin service-type http
+#
+interface Vlanif1
+#
+interface MEth0/0/1
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 201
+ port mux-vlan enable
+#
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 202
+ port mux-vlan enable
+#
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 200
+ port mux-vlan enable
+
